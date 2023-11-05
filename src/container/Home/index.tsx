@@ -7,10 +7,11 @@ import AddView from "../AddSection";
 import { GraphAPI } from "@goto/apis/index";
 import ButtonCom from "@goto/components/Button";
 import GroupButton from "@goto/components/Button/group";
-import { ArrowLeft, ArrowRight, Spinner } from "@goto/configs/svg";
+import { ArrowLeft, ArrowRight } from "@goto/configs/svg";
 import useDebounce from "@goto/hooks/useDebounce";
 import Header from "@goto/components/Header/header";
 import SubHeader from "@goto/components/Header/subHeader";
+import Spinner from "@goto/components/Spinner";
 export default function Dashboard() {
   const { getContactsListv2, QueryBySearch } = GraphAPI();
   const { data: dataByQuery, executeSearch } = QueryBySearch();
