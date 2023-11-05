@@ -32,7 +32,7 @@ And then
 2. Fill with NEXT_PUBLIC_BASE_URL=https://endpoint
 3. Example NUXT_PUBLIC_BASE_URL=http://localhost:8000/api
 4. Fill with NEXT_PUBLIC_WSS_URL=wss://endpoint
-5. Example NEXT_PUBLIC_WSS_URL=WSS://localhost:8000/api
+5. Example NEXT_PUBLIC_WSS_URL=wss://localhost:8000/api
 ```
 
 ## Demo and Feature
