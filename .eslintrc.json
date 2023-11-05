@@ -1,0 +1,7 @@
+{
+  "extends": [
+    "next/core-web-vitals",
+    "plugins:testing-library-react",
+    "plugins:jest-dom/recommended"
+  ]
+}

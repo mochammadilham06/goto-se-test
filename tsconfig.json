@@ -1,0 +1,40 @@
+{
+  "compilerOptions": {
+    "target": "es5",
+    "lib": ["dom", "dom.iterable", "esnext"],
+    "allowJs": true,
+    "skipLibCheck": true,
+    "strict": true,
+    "noEmit": true,
+    "esModuleInterop": true,
+    "module": "esnext",
+    "moduleResolution": "bundler",
+    "resolveJsonModule": true,
+    "isolatedModules": true,
+    "jsx": "preserve",
+    "incremental": true,
+    "baseUrl": ".",
+    "paths": {
+      "@goto/components/*": ["src/components/*"],
+      "@goto/containers/*": ["src/container/*"],
+      "@goto/pages/*": ["src/pages/*"],
+      "@goto/styles/*": ["src/styles/*"],
+      "@goto/apis/*": ["src/apis/*"],
+      "@goto/configs/*": ["src/configs/*"],
+      "@goto/utils/*": ["src/utils/*"],
+      "@goto/assets/*": ["src/assets/*"],
+      "@goto/hooks/*": ["src/hooks/*"],
+      "@goto/types/*": ["src/types/*"],
+      "@goto/services/*": ["src/services/*"]
+    }
+  },
+  "include": [
+    "next-env.d.ts",
+    "**/*.ts",
+    "**/*.tsx",
+    "./jest.setup.ts",
+    "__test__/index.test.tsxx",
+    "jest.config.ts"
+  ],
+  "exclude": ["node_modules"]
+}
