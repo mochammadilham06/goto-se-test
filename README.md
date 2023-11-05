@@ -37,18 +37,26 @@ And then
 
 ## Demo and Feature
 
-1. Fetch And Loading
+1. Fetch, Loading and Pagination
 
-![Demo 1](fetch-loading.gif)
+![Demo 1](/src/assets/readme/pagination.gif)
 
-2. Load More
+2. Add Data with multiple phones
 
-![Demo 2](load-more.gif)
+![Demo 2](/src/assets/readme/add.gif)
 
 3. Use debounce Search, hit api when 1 second keyup
 
-![Demo 3](use-debounce-search.gif)
+![Demo 3](/src/assets/readme/search.gif)
 
-4. Responsive Design
+4. Delete
 
-![Demo 4](responsive-design.gif)
+![Demo 4](/src/assets/readme/delete.gif)
+
+5. Update Data and hit 2 or more endpoint with Promises
+
+![Demo 4](/src/assets/readme/edit.gif)
+
+6. Responsive Design
+
+![Demo 4](/src/assets/readme/responsive.gif)
