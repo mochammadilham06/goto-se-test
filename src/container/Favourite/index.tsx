@@ -1,7 +1,16 @@
 import FavouriteAvatar from "@goto/components/Avatar/favourite";
 import React from "react";
+interface FavouriteContact {
+  favouriteContacts?: any;
+  setFavouriteContacts?: any;
+  toggleFavourite?: any;
+}
 
-export default function FavouriteList() {
+export default function FavouriteList({
+  favouriteContacts,
+  setFavouriteContacts,
+  toggleFavourite,
+}: FavouriteContact) {
   return (
     <div
       style={{
@@ -11,7 +20,10 @@ export default function FavouriteList() {
         gap: "10px",
       }}
     >
-      <FavouriteAvatar name="James" />
+      <FavouriteAvatar
+        favouriteContacts={favouriteContacts}
+        toggleFavourite={toggleFavourite}
+      />
     </div>
   );
 }

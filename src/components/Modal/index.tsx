@@ -147,7 +147,6 @@ function Modal({
               id: datas.id,
             },
             onCompleted: (response) => {
-              console.log(response);
               Swal.fire({
                 icon: "success",
                 title: "Delete Phone Contact Success",

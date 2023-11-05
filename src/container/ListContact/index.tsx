@@ -6,17 +6,23 @@ import React, { Fragment } from "react";
 import ButtonGroup from "@goto/components/Button/group";
 import Modal from "@goto/components/Modal";
 import useModal from "@goto/hooks/useModal";
-import { GetContact, GetContactListProps } from "src/types/contact";
-import { useState, useEffect } from "react";
+import { GetContact } from "src/types/contact";
 interface ListOfContact {
   // data: GetContactListProps | undefined;
   data: GetContact | undefined;
   setData?: any;
+  favouriteContacts?: any;
+  setFavouriteContacts?: any;
+  toggleFavourite?: any;
+  isFavourite?: any;
 }
-export default function ListContact({ data, setData }: ListOfContact) {
+export default function ListContact({
+  data,
+  toggleFavourite,
+  isFavourite,
+}: ListOfContact) {
   const { actionType, closeModal, isOpen, openModal, handleSetData, dataset } =
     useModal();
-  const [favouriteContacts, setFavouriteContacts] = useState([]);
 
   const ListContainer = styled.div`
     display: flex;
@@ -37,28 +43,34 @@ export default function ListContact({ data, setData }: ListOfContact) {
   `;
   return (
     <Fragment>
-      {data?.contact?.map((item, index) => (
-        <ListContainer key={index}>
-          <ListNumber data={item} />
-          <ButtonGroup type="row">
-            <ButtonCom
-              title=""
-              icon={<PenIcons />}
-              onClick={() => {
-                openModal("edit"), handleSetData(item);
-              }}
-            />
-            <ButtonCom title="" icon={<StartIcon />} />
-            <ButtonCom
-              title=""
-              icon={<TrashIcons />}
-              onClick={() => {
-                openModal("delete"), handleSetData(item);
-              }}
-            />
-          </ButtonGroup>
-        </ListContainer>
-      ))}
+      {data?.contact
+        ?.filter((item) => !isFavourite(item))
+        .map((item, index) => (
+          <ListContainer key={index}>
+            <ListNumber data={item} />
+            <ButtonGroup type="row">
+              <ButtonCom
+                title=""
+                icon={<PenIcons />}
+                onClick={() => {
+                  openModal("edit"), handleSetData(item);
+                }}
+              />
+              <ButtonCom
+                title=""
+                icon={<StartIcon />}
+                onClick={() => toggleFavourite(item)}
+              />
+              <ButtonCom
+                title=""
+                icon={<TrashIcons />}
+                onClick={() => {
+                  openModal("delete"), handleSetData(item);
+                }}
+              />
+            </ButtonGroup>
+          </ListContainer>
+        ))}
 
       <Modal
         title={actionType === "edit" ? "Edit" : "Delete"}

@@ -1,9 +1,13 @@
 import React, { Fragment } from "react";
 import styled from "@emotion/styled";
-type FavouriteProps = {
-  name: string;
-};
-export default function FavouriteAvatar({ name }: FavouriteProps) {
+interface FavouriteProps {
+  favouriteContacts: any;
+  toggleFavourite?: any;
+}
+export default function FavouriteAvatar({
+  favouriteContacts,
+  toggleFavourite,
+}: FavouriteProps) {
   const AvatarContainer = styled.div`
     position: relative;
     padding: 10px;
@@ -41,46 +45,22 @@ export default function FavouriteAvatar({ name }: FavouriteProps) {
 
   const AvatarName = styled.p`
     text-align: center;
-    font-weight: bold;
+    font-weight: semi-bold;
     color: #333;
+    margin: 0;
   `;
   return (
     <Fragment>
-      <AvatarContainer>
-        <Avatar>
-          <AvatarImage src="https://picsum.photos/200" />
-          <RemoveIcons>X</RemoveIcons>
-        </Avatar>
-        <AvatarName>{name}</AvatarName>
-      </AvatarContainer>
-      <AvatarContainer>
-        <Avatar>
-          <AvatarImage src="https://picsum.photos/200" />
-          <RemoveIcons>X</RemoveIcons>
-        </Avatar>
-        <AvatarName>{name}</AvatarName>
-      </AvatarContainer>
-      <AvatarContainer>
-        <Avatar>
-          <AvatarImage src="https://picsum.photos/200" />
-          <RemoveIcons>X</RemoveIcons>
-        </Avatar>
-        <AvatarName>{name}</AvatarName>
-      </AvatarContainer>
-      <AvatarContainer>
-        <Avatar>
-          <AvatarImage src="https://picsum.photos/200" />
-          <RemoveIcons>X</RemoveIcons>
-        </Avatar>
-        <AvatarName>{name}</AvatarName>
-      </AvatarContainer>
-      <AvatarContainer>
-        <Avatar>
-          <AvatarImage src="https://picsum.photos/200" />
-          <RemoveIcons>X</RemoveIcons>
-        </Avatar>
-        <AvatarName>{name}</AvatarName>
-      </AvatarContainer>
+      {favouriteContacts?.map((item: any, index: any) => (
+        <AvatarContainer key={item?.id}>
+          <Avatar>
+            <AvatarImage src="https://picsum.photos/200" />
+            <RemoveIcons onClick={() => toggleFavourite(item)}>X</RemoveIcons>
+          </Avatar>
+          <AvatarName>{`${item?.last_name}`}</AvatarName>
+          <AvatarName>{`${item?.first_name}`}</AvatarName>
+        </AvatarContainer>
+      ))}
     </Fragment>
   );
 }

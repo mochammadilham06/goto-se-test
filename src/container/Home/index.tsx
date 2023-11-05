@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useCallback } from "react";
+import React, { useState, useEffect } from "react";
 import styled from "@emotion/styled";
 import SearchInput from "@goto/components/Input/search";
 import ListContact from "../ListContact";
@@ -12,6 +12,7 @@ import useDebounce from "@goto/hooks/useDebounce";
 import Header from "@goto/components/Header/header";
 import SubHeader from "@goto/components/Header/subHeader";
 import Spinner from "@goto/components/Spinner";
+import useFavouriteToggle from "@goto/hooks/useToggleFav";
 export default function Dashboard() {
   const { getContactsListv2, QueryBySearch } = GraphAPI();
   const { data: dataByQuery, executeSearch } = QueryBySearch();
@@ -21,7 +22,9 @@ export default function Dashboard() {
   const [loading, setLoading] = useState<boolean>(false);
   const [error, setError] = useState<any>(null);
   const [search, setSearch] = useState<string>("");
+  const [favouriteContacts, setFavouriteContacts] = useState<any>([]);
   const useDebounceSearch = useDebounce(search, 1000);
+
   const {
     data: contactData,
     error: contactError,
@@ -29,8 +32,13 @@ export default function Dashboard() {
     refetch,
   } = getContactsListv2(limit, (page - 1) * limit);
 
+  const { toggleFavourite, isFavourite } = useFavouriteToggle(
+    favouriteContacts,
+    setFavouriteContacts
+  );
+
   const handleNextPage = () => {
-    if (page < Math.ceil(data?.contact?.length / limit) + 1) {
+    if (page < Math.ceil((data?.contact?.length + 1) / limit)) {
       setPage(page + 1);
     }
   };
@@ -66,6 +74,7 @@ export default function Dashboard() {
     }
   }, [useDebounceSearch]);
 
+  //Use Effect For Update data after searching
   useEffect(() => {
     setData(contactData);
     setLoading(contactLoading);
@@ -95,7 +104,11 @@ export default function Dashboard() {
       <Header>Wellcome</Header>
       {/* <PhoneCard /> */}
       <Header>Your Favourite Contact here</Header>
-      <FavouriteList />
+      <FavouriteList
+        favouriteContacts={favouriteContacts}
+        setFavouriteContacts={setFavouriteContacts}
+        toggleFavourite={toggleFavourite}
+      />
       <hr />
 
       <AddView />
@@ -104,7 +117,14 @@ export default function Dashboard() {
       <PhoneListHeader>
         <SubHeader>Phone List</SubHeader>
       </PhoneListHeader>
-      <ListContact data={data} setData={setData} />
+      <ListContact
+        data={data}
+        setData={setData}
+        favouriteContacts={favouriteContacts}
+        setFavouriteContacts={setFavouriteContacts}
+        isFavourite={isFavourite}
+        toggleFavourite={toggleFavourite}
+      />
 
       <GroupButton justifyContent="center" NewClassNames={["padding:10px"]}>
         <ButtonCom
