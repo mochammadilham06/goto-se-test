@@ -114,12 +114,31 @@ function Modal({
     phones: inputList?.map((input: any) => ({ number: input.value })),
   };
 
+  const isNameValid = (name: string) => /^[A-Za-z]+$/.test(name);
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setIsLoading(true);
     try {
       switch (actionType) {
         case "add":
+          if (
+            !isNameValid(dataToSend.first_name) ||
+            !isNameValid(dataToSend.last_name)
+          ) {
+            return Swal.fire({
+              icon: "error",
+              title: "first name or lastname has special character",
+              showConfirmButton: false,
+            });
+          }
+
+          if (dataToSend.first_name === dataToSend.last_name) {
+            return Swal.fire({
+              icon: "error",
+              title: "First Name and Last Name must be unique",
+              showConfirmButton: false,
+            });
+          }
           createPhoneContact({
             variables: dataToSend,
             onCompleted: (response) => {
@@ -136,6 +155,14 @@ function Modal({
                   last_name: "",
                 });
                 setInputList([{ type: "number", value: "" }]);
+              });
+            },
+            onError: (error) => {
+              Swal.fire({
+                icon: "error",
+                title: `${error}`,
+                showConfirmButton: false,
+                timer: 1500,
               });
             },
           });
@@ -156,9 +183,31 @@ function Modal({
                 onClose();
               });
             },
+            onError: (error) => {
+              Swal.fire({
+                icon: "error",
+                title: `${error}`,
+                showConfirmButton: false,
+                timer: 1500,
+              });
+            },
           });
           break;
         case "edit":
+          if (!isNameValid(data.first_name) || !isNameValid(data.last_name)) {
+            return Swal.fire({
+              icon: "error",
+              title: "first name or lastname has special character",
+              showConfirmButton: false,
+            });
+          }
+          if (data.first_name === data.last_name) {
+            return Swal.fire({
+              icon: "error",
+              title: "First Name and Last Name must be unique",
+              showConfirmButton: false,
+            });
+          }
           const updateContactByPromise = updateContact({
             variables: {
               id: datas.id,
@@ -201,7 +250,12 @@ function Modal({
               });
             })
             .catch((error) => {
-              console.error(error);
+              Swal.fire({
+                icon: "error",
+                title: `${error}`,
+                showConfirmButton: false,
+                timer: 1500,
+              });
             });
           break;
 
